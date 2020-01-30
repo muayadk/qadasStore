@@ -1,0 +1,227 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 29 أكتوبر 2019 الساعة 11:38
+-- إصدار الخادم: 10.1.29-MariaDB
+-- PHP Version: 7.1.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `products_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `categories`
+--
+
+CREATE TABLE `categories` (
+  `cat_id` int(4) NOT NULL,
+  `cat_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `categories`
+--
+
+INSERT INTO `categories` (`cat_id`, `cat_name`) VALUES
+(10, 'Ø­Ù‚Ø§Ø¦Ø¨ Ù†Ø³Ø§Ø¦ÙŠØ©'),
+(11, 'Ø´Ù†Ø§Ø· ÙŠØ¯'),
+(12, 'ÙˆØ²Øº Ø§Ø°Ø§Ù†'),
+(13, 'Ø³Ø§Ø¹Ø§Øª Ù†Ø³Ø§Ø¦ÙŠØ©'),
+(14, 'Ø§Ø­Ø°ÙŠØ§Ø¡ Ù†Ø³Ø§Ø¦ÙŠØ©'),
+(15, 'Ø§ØºÙ„ÙØ© ØªÙ„ÙÙˆÙ†Ø§Øª Ø¨Ù†Ø§ØªÙŠØ©'),
+(16, 'Ù…Ù„Ø§Ø¨Ø³ Ø¨Ù†Ø§ØªÙŠØ©'),
+(17, '');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `customer`
+--
+
+CREATE TABLE `customer` (
+  `customer_id` int(11) NOT NULL,
+  `customer_name` varchar(40) NOT NULL,
+  `customer_address` varchar(50) NOT NULL,
+  `customer_phone` int(11) NOT NULL,
+  `customer_email` varchar(30) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `confirmpass` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `customer`
+--
+
+INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_address`, `customer_phone`, `customer_email`, `password`, `confirmpass`) VALUES
+(1, 'moays', 'taiz', 7773655, 'm@gmail.com', '123', '123'),
+(15, 'moayadll', '55', 7773655, 'moayad@gmail.com', '123', '123'),
+(16, 'mahd', 'tks', 555, 'v@gmail.com', '123', '123'),
+(21, 'mava', 'vvvv', 73782457, 'tttt@gmail.com', '123', '123'),
+(23, 'bvb', 'bbb', 555, 'm@n.com', '123', '123'),
+(24, 'moay', 'taiz', 285887, 'm1@gmail.com', '123', '123');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `orders`
+--
+
+CREATE TABLE `orders` (
+  `orders_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL COMMENT 'fk',
+  `customer_id` int(11) NOT NULL COMMENT 'fk',
+  `quantity` int(20) NOT NULL,
+  `total_price` decimal(30,0) NOT NULL,
+  `orders_date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `orders`
+--
+
+INSERT INTO `orders` (`orders_id`, `product_id`, `customer_id`, `quantity`, `total_price`, `orders_date`) VALUES
+(1, 13, 1, 1, '150', '2019-10-26 09:31:16.583048'),
+(2, 12, 1, 1, '2520', '2019-10-26 09:31:16.683339');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `product`
+--
+
+CREATE TABLE `product` (
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(200) NOT NULL,
+  `product_discription` text NOT NULL,
+  `cat_id` int(11) NOT NULL COMMENT 'fk',
+  `image` varchar(50) NOT NULL,
+  `pro_buyprice` decimal(20,0) NOT NULL,
+  `pro_price` decimal(20,0) NOT NULL,
+  `pro_country` varchar(30) NOT NULL,
+  `pro_date` varchar(20) NOT NULL,
+  `pro_enddate` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `product_discription`, `cat_id`, `image`, `pro_buyprice`, `pro_price`, `pro_country`, `pro_date`, `pro_enddate`) VALUES
+(10, 'Ø¬Ù„Ø§ÙƒØ³ÙŠ', 'Ù…Ù„ÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠÙŠØ­ Ø¬Ø¯Ø§', 15, 'product-4.jpg', '500', '1200', 'Ø§Ù„ÙŠÙ…Ù†', '2018-10-17', '2025-11-18'),
+(12, 'ØªÙˆØ´ÙŠØ¨Ø§', 'Ø­Ø§Ù„ÙŠ Ù…Ù†ØªØ¬ Ù…Ù† Ø§Ù„Ù…ØµÙ†Ø¹ Ø§Ù„Ù‰ Ø§Ù„Ù…Ø³ØªÙ‡Ù„Ùƒ Ù…Ù† ØºÙŠØ± Ø´Ù‚Ø§Ø¡ ÙŠØ¹ØªØ¨Ø± Ø¹Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ Ø§Ù„Ø§ØµØ¯Ø§Ø± Ø§Ù„Ø§ÙˆÙ„ ÙÙŠ ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø´Ø±ÙŠØ© ÙƒÙƒÙ„ ÙˆØ¹Ù„ÙŠÙ‡ ÙØ§Ù†Ù†Ø§ Ø³ÙˆÙ Ù†Ø³ØªÙ…Ø± ÙÙŠ ØªØ³ÙˆÙŠÙ‚ ÙÙŠ ÙƒÙ„ Ø§Ù„Ø§Ø±Ø¬Ø§Ø¡ Ø§Ù„Ù…Ø¹Ù…ÙˆØ±ÙŠØ©', 13, 'product-thumb-3.jpg', '3000', '2520', 'Ø§Ù„ØµÙŠÙ†', '2018-08-18', '2021-10-20'),
+(13, 'course php', 'Ø¬Ù…ÙŠÙ„ Ø¬Ø¯Ø§', 10, 'img11.jpg', '100', '150', 'ÙŠÙ…Ù†', '', ''),
+(14, 'Ù†Ø§Ù†Ùˆ', 'Ø¬Ù…ÙŠÙ„ Ø¬Ø¯Ø§', 15, 'logo1.png', '100', '150', 'Ø§Ù„ÙŠÙ…Ù†', '2019-10-16', '2019-11-05'),
+(17, 'ØªÙˆØ´ÙŠØ¨Ø§', 'dfsvidsdijsddndolsd', 12, 'Ø¨Ø¯ÙˆÙ† Ø¹Ù†ÙˆØ§Ù†.png', '1522', '1200', 'Ø§Ù„ÙŠÙ…Ù†', '2019-10-07', '2019-10-22');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `user_pass` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_name`, `email`, `user_pass`) VALUES
+(1, 'muayad', 'moayadabdo0@gmail.com', 'muayad');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `customer_name` (`customer_name`),
+  ADD UNIQUE KEY `customer_email` (`customer_email`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orders_id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_name` (`user_name`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `cat_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
